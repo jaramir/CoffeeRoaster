@@ -1,16 +1,25 @@
 package CoffeeRoaster
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.{FunSpec, Matchers}
 
-class GameSpec extends FlatSpec with Matchers {
-  behavior of "a game of Coffee Roaster"
+class GameSpec extends FunSpec with Matchers {
+  describe("Roast action") {
+    it("roast beans from the hand and put them in the bag") {
+      val initialState = Game(bag=List(), hand=List(Bean(0)))
 
-  it should "roast beans from the hand and put them in the bag" in {
-    val t0 = Game(bag=List(), hand=List(Bean(0)))
+      val afterRoasting = initialState.execute(Roast())
 
-    val t1 = t0.execute(Roast())
+      afterRoasting.hand shouldBe empty
+      afterRoasting.bag should contain only Bean(1)
+    }
 
-    t1.hand shouldBe empty
-    t1.bag should contain only Bean(1)
+    it("keeps the bag unchanged") {
+      val initialState = Game(bag=List(Bean(2)), hand=List())
+
+      val afterRoasting = initialState.execute(Roast())
+
+      afterRoasting.hand shouldBe empty
+      afterRoasting.bag should contain only Bean(2)
+    }
   }
 }
