@@ -57,15 +57,17 @@ class GameSpec extends FunSpec with Matchers {
     }
   }
 
-  it("score value of beans") {
-    val game = Game(List(), List(), List(Bean(0), Bean(1), Bean(2), Bean(2), Bean(2), Bean(3), Bean(4)))
+  describe("Scoring") {
+    it("gain points equal to the value of roasted beans") {
+      val game = Game(List(), List(), List(Bean(0), Bean(1), Bean(2), Bean(2), Bean(2), Bean(3), Bean(4)))
 
-    game.score should be (14)
-  }
+      game.score should be (14)
+    }
 
-  it("lose a point for each hard or burnt bean") {
-    val game = Game(List(), List(), List(Bean(2), HardBean(), BurntBean(), BurntBean()))
+    it("lose a point for each hard or burnt bean") {
+      val game = Game(List(), List(), List(Bean(2), HardBean(), BurntBean(), BurntBean()))
 
-    game.score should be (-1)
+      game.score should be (-1)
+    }
   }
 }
