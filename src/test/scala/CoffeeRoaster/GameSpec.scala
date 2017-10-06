@@ -28,5 +28,13 @@ class GameSpec extends FunSpec with Matchers {
 
       afterRoasting.bag should contain only Bean(0)
     }
+
+    it("level four beans become burnt when roasted") {
+      val initialState = Game(bag=List(), hand=List(Bean(4)))
+
+      val afterRoasting = initialState.execute(Roast())
+
+      afterRoasting.bag should contain only BurntBean()
+    }
   }
 }
