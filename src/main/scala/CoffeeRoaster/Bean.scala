@@ -1,3 +1,7 @@
 package CoffeeRoaster
 
-case class Bean(value: Int)
+sealed trait Token
+
+case class Bean(value: Int) extends Token
+
+case class HardBean() extends Token

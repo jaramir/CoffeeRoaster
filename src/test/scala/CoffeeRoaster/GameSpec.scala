@@ -18,8 +18,15 @@ class GameSpec extends FunSpec with Matchers {
 
       val afterRoasting = initialState.execute(Roast())
 
-      afterRoasting.hand shouldBe empty
       afterRoasting.bag should contain only Bean(2)
+    }
+
+    it("hard beans are roasted to level zero") {
+      val initialState = Game(bag=List(), hand=List(HardBean()))
+
+      val afterRoasting = initialState.execute(Roast())
+
+      afterRoasting.bag should contain only Bean(0)
     }
   }
 }
