@@ -2,8 +2,8 @@ package CoffeeRoaster
 
 sealed trait Action
 
-case class Pull() extends Action
+object Pull extends Action
 
-case class Roast() extends Action
+object Roast extends Action
 
-case class Stop() extends Action
+object Stop extends Action

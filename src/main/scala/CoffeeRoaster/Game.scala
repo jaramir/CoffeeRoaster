@@ -13,14 +13,14 @@ case class Game(bag: List[Token] = List(),
   }).sum
 
   def apply(action: Action): Game = action match {
-    case _: Pull =>
+    case Pull =>
       val (pulled, rest) = shuffle(bag).splitAt(tokensToPull)
       this.copy(rest, pulled, empty)
 
-    case _: Roast =>
+    case Roast =>
       this.copy(hand.map(roast) ++ bag, empty)
 
-    case _: Stop =>
+    case Stop =>
       val (picked, rest) = shuffle(bag).splitAt(tokensToScore)
       this.copy(rest, empty, picked, isFinished = true)
   }

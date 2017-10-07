@@ -17,14 +17,14 @@ object Main extends App {
   while (!game.isFinished) {
     StdIn.readLine("Pull Roast Stop > ") match {
       case "p" =>
-        game = game(Pull())
+        game = game(Pull)
         game.hand.foreach(println)
 
       case "r" =>
-        game = game(Roast())
+        game = game(Roast)
 
       case "s" =>
-        game = game(Stop())
+        game = game(Stop)
         game.cup.foreach(println)
         println(s"your score is: ${game.score}")
     }
