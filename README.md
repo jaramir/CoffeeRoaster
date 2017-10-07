@@ -1,8 +1,12 @@
 CoffeeRoaster
 =============
 
-TODO
+A command line implementation of the solitaire board game Coffee Roaster by Saashi & Saashi
 
+http://saashiandsaashi.tumblr.com/english_coffeeroaster
+
+TODO
+----
 - [ ] moisture
 - [ ] roast points
 - [ ] roast tracker
