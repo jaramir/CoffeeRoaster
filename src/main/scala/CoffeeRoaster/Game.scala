@@ -12,7 +12,7 @@ case class Game(bag: List[Token] = List(),
     case _: BurntBean => Some(-1)
   }).sum
 
-  def execute(action: Action): Game = action match {
+  def apply(action: Action): Game = action match {
     case _: Pull =>
       val (pulled, rest) = shuffle(bag).splitAt(tokensToPull)
       this.copy(rest, pulled, empty)
