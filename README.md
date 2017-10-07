@@ -21,6 +21,7 @@ TODO
 - [ ] smoke
 - [ ] reject bean
 - [ ] tray
+- [ ] limited tokens
 - [ ] nine or less beans penalty
 - [ ] unique effects
 - [ ] blends
