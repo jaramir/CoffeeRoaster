@@ -59,6 +59,10 @@ class GameSpec extends FunSpec with Matchers {
 
       // TODO: assert the selection was actually randomised
     }
+
+    it("finishes the game") {
+      Game().execute(Stop()).isFinished shouldBe true
+    }
   }
 
   describe("Scoring") {

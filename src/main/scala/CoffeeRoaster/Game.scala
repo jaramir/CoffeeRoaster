@@ -2,7 +2,10 @@ package CoffeeRoaster
 
 import scala.util.Random.shuffle
 
-case class Game(bag: List[Token] = List(), hand: List[Token] = List(), cup: List[Token] = List()) {
+case class Game(bag: List[Token] = List(),
+                hand: List[Token] = List(),
+                cup: List[Token] = List(),
+                isFinished: Boolean = false) {
   def score: Int = cup.flatMap(token => token match {
     case bean: Bean => Some(bean.value)
     case _: HardBean => Some(-1)
@@ -19,7 +22,7 @@ case class Game(bag: List[Token] = List(), hand: List[Token] = List(), cup: List
 
     case _: Stop =>
       val (picked, rest) = shuffle(bag).splitAt(tokensToScore)
-      this.copy(rest, empty, picked)
+      this.copy(rest, empty, picked, isFinished = true)
   }
 
   private def roast(token: Token) = {
