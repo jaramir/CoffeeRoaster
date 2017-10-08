@@ -5,17 +5,22 @@ import scala.util.Random.shuffle
 case class Game(bag: List[Token] = List(),
                 hand: List[Token] = List(),
                 cup: List[Token] = List(),
+                discarded: List[Token] = List(),
                 isFinished: Boolean = false) {
-  def score: Int = cup.flatMap(token => token match {
-    case bean: Bean => Some(bean.value)
-    case _: HardBean => Some(-1)
-    case _: BurntBean => Some(-1)
-  }).sum
+  def score: Int = cup.map {
+    case bean: Bean => bean.value
+    case _: HardBean => -1
+    case _: BurntBean => -1
+    case _: Moisture => 0
+  }.sum
+
+  def isMoisture(token: Token): Boolean = token.isInstanceOf[Moisture]
 
   def apply(action: Action): Game = action match {
     case Pull =>
       val (pulled, rest) = shuffle(bag).splitAt(tokensToPull)
-      this.copy(rest, pulled, empty)
+      val (moisture, beans) = pulled.partition(token => isMoisture(token))
+      this.copy(bag = rest, hand = beans, discarded = this.discarded ++ moisture)
 
     case Roast =>
       this.copy(hand.map(roast) ++ bag, empty)

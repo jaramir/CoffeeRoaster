@@ -15,6 +15,16 @@ class GameSpec extends FunSpec with Matchers {
 
       // TODO: assert the selection was actually randomised
     }
+
+    it("discards moisture tokens") {
+      val initialState = Game(bag = List(Moisture(), Moisture(), Bean(0), Bean(0), Bean(0)))
+
+      val afterPulling = initialState(Pull)
+
+      afterPulling.hand should contain theSameElementsAs Seq(Bean(0), Bean(0), Bean(0))
+      afterPulling.hand should not contain Moisture()
+      afterPulling.discarded should contain theSameElementsAs Seq(Moisture(), Moisture())
+    }
   }
 
   describe("Roast action") {
@@ -65,17 +75,17 @@ class GameSpec extends FunSpec with Matchers {
     }
   }
 
-  describe("Scoring") {
-    it("gain points equal to the value of roasted beans in the cup") {
-      val game = Game(cup = List(Bean(0), Bean(1), Bean(2), Bean(2), Bean(2), Bean(3), Bean(4)))
-
-      game.score should be(14)
+  describe("Scoring the cup") {
+    it("gain points equal to the value of roasted beans") {
+      Game(cup = List(Bean(0), Bean(1), Bean(2), Bean(2), Bean(2), Bean(3), Bean(4))).score should be (14)
     }
 
-    it("lose a point for each hard or burnt bean in the cup") {
-      val game = Game(cup = List(Bean(2), HardBean(), BurntBean(), BurntBean()))
+    it("lose a point for each hard or burnt bean") {
+      Game(cup = List(Bean(2), HardBean(), BurntBean(), BurntBean())).score should be (-1)
+    }
 
-      game.score should be(-1)
+    it("ignore moisture") {
+      Game(cup = List(Moisture())).score should be (0)
     }
   }
 
