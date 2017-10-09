@@ -42,6 +42,7 @@ object Main extends App {
 
       case "r" =>
         game = game(Roast)
+        println(s"roast tracker is now: ${game.roastTracker}")
 
       case "s" =>
         game = game(Stop)

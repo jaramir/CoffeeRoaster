@@ -9,9 +9,9 @@ case class Game(bag: List[Token] = List(),
                 isFinished: Boolean = false,
                 targetRoastLevel: Map[Int, Int] = Map()) {
   private val tokensToPull = 5
+
   private val tokensToScore = 10
   private val empty: List[Token] = List()
-
   def apply(action: Action): Game = action match {
     case Pull =>
       val (pulled, rest) = shuffle(bag).splitAt(tokensToPull)
@@ -30,5 +30,9 @@ case class Game(bag: List[Token] = List(),
     targetRoastLevel.getOrElse(cupRoastLevel, 0) +
       cup.map(_.scoreModifier).sum
 
-  def cupRoastLevel: Int = cup.map(_.roastValue).sum
+  def cupRoastLevel: Int = roastValueOf(cup)
+
+  def roastTracker: Int = roastValueOf(bag)
+
+  private def roastValueOf(tokens: List[Token]): Int = tokens.map(_.roastValue).sum
 }

@@ -92,6 +92,12 @@ class GameSpec extends FunSpec with Matchers {
     }
   }
 
+  describe("Roast tracker") {
+    it("sum the rost value of every token in the bag") {
+      Game(bag = List(BeanZero, BeanOne, BeanTwo, BeanThree, BeanFour, BurntBean, Moisture, HardBean)).roastTracker should be (10)
+    }
+  }
+
   describe("Scoring") {
     it("gains point for the cup roast level") {
       val targetRoastLevel = Map(

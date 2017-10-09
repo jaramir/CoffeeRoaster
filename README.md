@@ -9,7 +9,7 @@ TODO
 ----
 - [x] moisture
 - [x] roast points
-- [ ] roast tracker
+- [x] roast tracker
 - [ ] skill points
 - [ ] body & concentration
 - [ ] acidity & preservation
