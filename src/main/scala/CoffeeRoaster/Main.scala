@@ -4,11 +4,11 @@ import scala.io.StdIn
 
 object Main extends App {
   private val jamaicaBlueMountainNo1Bag = List(
-    Bean(0), Bean(0), Bean(0), Bean(0), Bean(0),
-    Bean(0), Bean(0), Bean(0), Bean(0), Bean(0),
-    Bean(0), Bean(0), Bean(0),
-    HardBean(), HardBean(), HardBean(),
-    Moisture(), Moisture(), Moisture(),
+    BeanZero, BeanZero, BeanZero, BeanZero, BeanZero,
+    BeanZero, BeanZero, BeanZero, BeanZero, BeanZero,
+    BeanZero, BeanZero, BeanZero,
+    HardBean, HardBean, HardBean,
+    Moisture, Moisture, Moisture,
     // 1x Reject
     // 2x Body
     // 2x Acidity
