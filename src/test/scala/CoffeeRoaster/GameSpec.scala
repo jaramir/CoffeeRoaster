@@ -75,17 +75,31 @@ class GameSpec extends FunSpec with Matchers {
     }
   }
 
-  describe("Scoring the cup") {
-    it("gain points equal to the value of roasted beans") {
-      Game(cup = List(Bean(0), Bean(1), Bean(2), Bean(2), Bean(2), Bean(3), Bean(4))).score should be (14)
+  describe("Roast level of the cup") {
+    it("sum the value of roasted beans") {
+      Game(cup = List(Bean(0), Bean(1), Bean(2), Bean(2), Bean(2), Bean(3), Bean(4))).cupRoastLevel should be (14)
     }
 
-    it("lose a point for each hard or burnt bean") {
-      Game(cup = List(Bean(2), HardBean(), BurntBean(), BurntBean())).score should be (-1)
+    it("lose one for each hard or burnt bean") {
+      Game(cup = List(Bean(2), HardBean(), BurntBean(), BurntBean())).cupRoastLevel should be (-1)
     }
 
     it("ignore moisture") {
-      Game(cup = List(Moisture())).score should be (0)
+      Game(cup = List(Moisture())).cupRoastLevel should be (0)
+    }
+  }
+
+  describe("Scoring") {
+
+    it("gains point for the cup roast level") {
+      val targetRoastLevel = Map(
+        (2, 5),
+        (3, 10)
+      )
+      Game(cup = List(Bean(1)), targetRoastLevel = targetRoastLevel).score should be (0)
+      Game(cup = List(Bean(2)), targetRoastLevel = targetRoastLevel).score should be (5)
+      Game(cup = List(Bean(3)), targetRoastLevel = targetRoastLevel).score should be (10)
+      Game(cup = List(Bean(4)), targetRoastLevel = targetRoastLevel).score should be (0)
     }
   }
 

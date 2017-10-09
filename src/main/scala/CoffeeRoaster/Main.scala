@@ -3,7 +3,7 @@ package CoffeeRoaster
 import scala.io.StdIn
 
 object Main extends App {
-  private val jamaicaBlueMountainNo1 = List(
+  private val jamaicaBlueMountainNo1Bag = List(
     Bean(0), Bean(0), Bean(0), Bean(0), Bean(0),
     Bean(0), Bean(0), Bean(0), Bean(0), Bean(0),
     Bean(0), Bean(0), Bean(0),
@@ -15,7 +15,20 @@ object Main extends App {
     // 3x Aroma
   )
 
-  private var game = Game(bag = jamaicaBlueMountainNo1)
+  private val jamaicaBlueMountainNo1Target = Map(
+    (11, 4),
+    (12, 4),
+    (13, 6),
+    (14, 10),
+    (15, 7),
+    (16, 6),
+    (17, 4),
+    (18, 4)
+  )
+
+  private var game = Game(
+    bag = jamaicaBlueMountainNo1Bag,
+    targetRoastLevel = jamaicaBlueMountainNo1Target)
 
   while (!game.isFinished) {
     StdIn.readLine("Pull Roast Stop > ") match {
@@ -33,8 +46,8 @@ object Main extends App {
       case "s" =>
         game = game(Stop)
         game.cup.foreach(println)
+        println(s"cup roast level is: ${game.cupRoastLevel}")
         println(s"your score is: ${game.score}")
     }
   }
-
 }

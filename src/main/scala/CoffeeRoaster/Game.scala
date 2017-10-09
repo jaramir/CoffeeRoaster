@@ -6,8 +6,11 @@ case class Game(bag: List[Token] = List(),
                 hand: List[Token] = List(),
                 cup: List[Token] = List(),
                 discarded: List[Token] = List(),
-                isFinished: Boolean = false) {
-  def score: Int = cup.map {
+                isFinished: Boolean = false,
+                targetRoastLevel: Map[Int, Int] = Map()) {
+  def score: Int = targetRoastLevel.getOrElse(cupRoastLevel, 0)
+
+  def cupRoastLevel: Int = cup.map {
     case bean: Bean => bean.value
     case _: HardBean => -1
     case _: BurntBean => -1
