@@ -8,7 +8,7 @@ http://saashiandsaashi.tumblr.com/english_coffeeroaster
 TODO
 ----
 - [x] moisture
-- [ ] roast points
+- [x] roast points
 - [ ] roast tracker
 - [ ] skill points
 - [ ] body & concentration
