@@ -80,17 +80,12 @@ class GameSpec extends FunSpec with Matchers {
       Game(cup = List(Bean(0), Bean(1), Bean(2), Bean(2), Bean(2), Bean(3), Bean(4))).cupRoastLevel should be (14)
     }
 
-    it("lose one for each hard or burnt bean") {
-      Game(cup = List(Bean(2), HardBean(), BurntBean(), BurntBean())).cupRoastLevel should be (-1)
-    }
-
-    it("ignore moisture") {
-      Game(cup = List(Moisture())).cupRoastLevel should be (0)
+    it("ignore moisture, hard beans, and burnt beans") {
+      Game(cup = List(Bean(2), HardBean(), BurntBean(), BurntBean(), Moisture())).cupRoastLevel should be (2)
     }
   }
 
   describe("Scoring") {
-
     it("gains point for the cup roast level") {
       val targetRoastLevel = Map(
         (2, 5),
@@ -100,6 +95,15 @@ class GameSpec extends FunSpec with Matchers {
       Game(cup = List(Bean(2)), targetRoastLevel = targetRoastLevel).score should be (5)
       Game(cup = List(Bean(3)), targetRoastLevel = targetRoastLevel).score should be (10)
       Game(cup = List(Bean(4)), targetRoastLevel = targetRoastLevel).score should be (0)
+    }
+
+    it("lose one for each hard or burnt bean") {
+      Game(cup = List(HardBean())).score should be (-1)
+      Game(cup = List(BurntBean())).score should be (-1)
+    }
+
+    it("ignore moisture") {
+      Game(cup = List(Moisture())).score should be (0)
     }
   }
 

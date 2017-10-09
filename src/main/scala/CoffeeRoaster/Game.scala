@@ -8,12 +8,19 @@ case class Game(bag: List[Token] = List(),
                 discarded: List[Token] = List(),
                 isFinished: Boolean = false,
                 targetRoastLevel: Map[Int, Int] = Map()) {
-  def score: Int = targetRoastLevel.getOrElse(cupRoastLevel, 0)
+  def score: Int =
+    targetRoastLevel.getOrElse(cupRoastLevel, 0) +
+    cup.map {
+      case _: Bean => 0
+      case _: HardBean => -1
+      case _: BurntBean => -1
+      case _: Moisture => 0
+    }.sum
 
   def cupRoastLevel: Int = cup.map {
     case bean: Bean => bean.value
-    case _: HardBean => -1
-    case _: BurntBean => -1
+    case _: HardBean => 0
+    case _: BurntBean => 0
     case _: Moisture => 0
   }.sum
 
