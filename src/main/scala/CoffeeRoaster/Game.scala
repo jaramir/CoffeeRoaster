@@ -12,6 +12,7 @@ case class Game(bag: List[Token] = List(),
 
   private val tokensToScore = 10
   private val empty: List[Token] = List()
+
   def apply(action: Action): Game = action match {
     case Pull =>
       val (pulled, rest) = shuffle(bag).splitAt(tokensToPull)
@@ -26,13 +27,29 @@ case class Game(bag: List[Token] = List(),
       this.copy(rest, empty, picked, isFinished = true)
   }
 
-  def score: Int =
-    targetRoastLevel.getOrElse(cupRoastLevel, 0) +
-      cup.map(_.scoreModifier).sum
+  def score: Int = roastPoints + negativePoints + skillPoints
+
+  private def roastPoints = {
+    targetRoastLevel.getOrElse(cupRoastLevel, 0)
+  }
 
   def cupRoastLevel: Int = roastValueOf(cup)
 
-  def roastTracker: Int = roastValueOf(bag)
-
   private def roastValueOf(tokens: List[Token]): Int = tokens.map(_.roastValue).sum
+
+  private def negativePoints = {
+    cup.map(_.scoreModifier).sum
+  }
+
+  private def skillPoints: Int = {
+    val setSizes = cup.filter(_.roastValue > 0)
+      .groupBy(_.roastValue).values
+      .map(_.length)
+
+    if (setSizes.isEmpty) return 0
+
+    Seq(0, 0, 0, 1, 2, 3, 4, 5)(math.min(setSizes.max, 7))
+  }
+
+  def roastTracker: Int = roastValueOf(bag)
 }

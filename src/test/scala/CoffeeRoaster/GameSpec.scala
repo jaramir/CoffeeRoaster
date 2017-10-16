@@ -94,12 +94,12 @@ class GameSpec extends FunSpec with Matchers {
 
   describe("Roast tracker") {
     it("sum the rost value of every token in the bag") {
-      Game(bag = List(BeanZero, BeanOne, BeanTwo, BeanThree, BeanFour, BurntBean, Moisture, HardBean)).roastTracker should be (10)
+      Game(bag = List(BeanZero, BeanOne, BeanTwo, BeanThree, BeanFour, BurntBean, Moisture, HardBean)).roastTracker should be(10)
     }
   }
 
   describe("Scoring") {
-    it("gains point for the cup roast level") {
+    it("gain points for the cup roast level") {
       val targetRoastLevel = Map(
         (2, 5),
         (3, 10)
@@ -108,6 +108,25 @@ class GameSpec extends FunSpec with Matchers {
       Game(cup = List(BeanTwo), targetRoastLevel = targetRoastLevel).score should be(5)
       Game(cup = List(BeanThree), targetRoastLevel = targetRoastLevel).score should be(10)
       Game(cup = List(BeanFour), targetRoastLevel = targetRoastLevel).score should be(0)
+    }
+
+    describe("Skill Points") {
+      it("gain points for the largest set of equal value beans") {
+        Game(cup = List(BeanOne, BeanOne, BeanOne)).score should be(1)
+        Game(cup = List(BeanOne, BeanOne, BeanOne, BeanOne)).score should be(2)
+        Game(cup = List(BeanOne, BeanOne, BeanOne, BeanOne, BeanOne)).score should be(3)
+        Game(cup = List(BeanOne, BeanOne, BeanOne, BeanOne, BeanOne, BeanOne)).score should be(4)
+        Game(cup = List(BeanOne, BeanOne, BeanOne, BeanOne, BeanOne, BeanOne, BeanOne)).score should be(5)
+        Game(cup = List(BeanOne, BeanOne, BeanOne, BeanOne, BeanOne, BeanOne, BeanOne, BeanOne)).score should be(5)
+      }
+
+      it("only one largest set of equal value beans is scored") {
+        Game(cup = List(
+          BeanOne, BeanOne, BeanOne, BeanOne, BeanOne,
+          BeanTwo, BeanTwo, BeanTwo, BeanTwo, BeanTwo,
+          BeanThree, BeanThree, BeanThree, BeanThree,
+        )).score should be(3)
+      }
     }
 
     it("lose one for each hard or burnt bean") {
