@@ -156,6 +156,23 @@ class GameSpec extends FunSpec with Matchers {
     }
   }
 
+  describe("Preservation") {
+    it("use an acidity to return two beans to the bag") {
+      val initialState = Game(hand = List(BeanOne, BeanTwo, Acidity))
+
+      val afterPreservation = initialState(Preservation(BeanOne, BeanTwo))
+
+      afterPreservation.hand shouldBe empty
+      afterPreservation.bag should contain allOf(BeanOne, BeanTwo)
+    }
+
+    it("has to have the beans and the acidity in hand") {
+      Game(hand = List(Acidity, BeanOne))(Preservation(BeanOne, BeanTwo)).bag shouldBe empty
+      Game(hand = List(Acidity, BeanTwo))(Preservation(BeanOne, BeanTwo)).bag shouldBe empty
+      Game(hand = List(BeanOne, BeanTwo))(Preservation(BeanOne, BeanTwo)).bag shouldBe empty
+    }
+  }
+
   private val twentyFiveBeans: List[Token] = List(
     BeanOne, BeanOne, BeanOne, BeanOne, BeanOne,
     BeanOne, BeanOne, BeanOne, BeanOne, BeanOne,

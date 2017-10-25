@@ -93,7 +93,17 @@ case object Body extends Token {
 
   override def scoreModifier: Int = 0
 
-  override def roast: Body.type = Body
+  override def roast: Token = Body
 
   override def toString = "(Body)"
+}
+
+case object Acidity extends Token {
+  override def roastValue: Int = 0
+
+  override def scoreModifier: Int = 0
+
+  override def roast: Token = Acidity
+
+  override def toString = "(Acidity)"
 }

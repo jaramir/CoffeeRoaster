@@ -39,6 +39,14 @@ case class Game(bag: List[Token] = List(),
           this.copy(hand = newHand, bag = bag :+ newToken)
         })
         .getOrElse(this)
+
+    case Preservation(b1, b2) =>
+      if (!hand.contains(b1)) return this
+      if (!hand.contains(b2)) return this
+      if (!hand.contains(Acidity)) return this
+
+      val newHand = (hand.toBuffer - Acidity - b1 - b2).toList
+      this.copy(hand = newHand, bag = bag :+ b1 :+ b2)
   }
 
   def score: Int = roastPoints + negativePoints + skillPoints

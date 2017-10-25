@@ -10,8 +10,8 @@ object Main extends App {
     HardBean, HardBean, HardBean,
     Moisture, Moisture, Moisture,
     // 1x Reject
-    Body, Body
-    // 2x Acidity
+    Body, Body,
+    Acidity, Acidity
     // 3x Aroma
   )
 
@@ -31,7 +31,7 @@ object Main extends App {
     targetRoastLevel = jamaicaBlueMountainNo1Target)
 
   while (!game.isFinished) {
-    StdIn.readLine("[Look|Pull|Roast|Stop|Concentration x y]> ") match {
+    StdIn.readLine("[Look|Pull|Roast|Stop|Concentration x y|Preservation x y]> ") match {
       case "l" =>
         look("hand", game.hand)
         look("discarded", game.discarded)
@@ -62,6 +62,12 @@ object Main extends App {
         val b1 = toBean(parts(1))
         val b2 = toBean(parts(2))
         game = game(Concentration(b1, b2))
+
+      case cmd if cmd.matches("p [01234] [01234]") =>
+        val parts = cmd.split(' ')
+        val b1 = toBean(parts(1))
+        val b2 = toBean(parts(2))
+        game = game(Preservation(b1, b2))
 
       case cmd =>
         println(s"I don't know how to $cmd")
