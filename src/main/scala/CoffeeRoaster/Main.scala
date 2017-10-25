@@ -10,7 +10,7 @@ object Main extends App {
     HardBean, HardBean, HardBean,
     Moisture, Moisture, Moisture,
     // 1x Reject
-    // 2x Body
+    Body, Body
     // 2x Acidity
     // 3x Aroma
   )
