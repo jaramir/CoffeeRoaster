@@ -55,6 +55,10 @@ case class Game(bag: List[Token] = List(),
 
       val newHand = (hand.toBuffer - Acidity - b1 - b2).toList
       this.copy(hand = newHand, bag = bag :+ b1 :+ b2)
+
+    case Dispersion(b, b1, b2) =>
+      val newHand = (hand.toBuffer - Aroma - b).toList
+      this.copy(hand = newHand, bag = bag :+ b1 :+ b2)
   }
 
   def score: Int = roastPoints + negativePoints + skillPoints

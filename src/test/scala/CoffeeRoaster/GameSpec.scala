@@ -183,11 +183,22 @@ class GameSpec extends FunSpec with Matchers {
       Game(hand = List(Acidity, BeanOne, BeanTwo))(Preservation(BeanOne, BeanOne)).bag shouldBe empty
     }
 
-    it("can concentrate only beans 0, 1, 2, 3, and 4") {
+    it("can preserve only beans 0, 1, 2, 3, and 4") {
       Game(hand = List(Acidity, BeanTwo, HardBean))(Preservation(BeanTwo, HardBean)).bag shouldBe empty
       Game(hand = List(Acidity, BeanTwo, BurntBean))(Preservation(BeanTwo, BurntBean)).bag shouldBe empty
       Game(hand = List(Acidity, BeanTwo, Body))(Preservation(BeanTwo, Body)).bag shouldBe empty
       Game(hand = List(Acidity, BeanTwo, Acidity))(Preservation(BeanTwo, Acidity)).bag shouldBe empty
+    }
+  }
+
+  describe("Dispersion") {
+    it("use an aroma to turn one bean into two") {
+      val initialState = Game(hand = List(BeanTwo, Aroma))
+
+      val afterDispersion = initialState(Dispersion(BeanTwo, BeanOne, BeanOne))
+
+      afterDispersion.hand shouldBe empty
+      afterDispersion.bag should contain theSameElementsAs Seq(BeanOne, BeanOne)
     }
   }
 

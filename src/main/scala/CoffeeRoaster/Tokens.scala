@@ -107,3 +107,13 @@ case object Acidity extends Token {
 
   override def toString = "(Acidity)"
 }
+
+case object Aroma extends Token {
+  override def roastValue: Int = 0
+
+  override def scoreModifier: Int = 0
+
+  override def roast: Token = Aroma
+
+  override def toString = "(Aroma)"
+}
