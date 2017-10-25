@@ -27,6 +27,10 @@ case class Game(bag: List[Token] = List(),
       this.copy(rest, empty, picked, isFinished = true)
 
     case Concentration(b1, b2) =>
+      if (!hand.contains(b1)) return this
+      if (!hand.contains(b2)) return this
+      if (!hand.contains(Body)) return this
+
       val roastValue = b1.roastValue + b2.roastValue
       List(BeanTwo, BeanThree, BeanFour)
         .find(_.roastValue == roastValue)

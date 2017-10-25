@@ -149,6 +149,12 @@ class GameSpec extends FunSpec with Matchers {
       afterConcentrtion.bag should contain only BeanThree
     }
 
+    it("has to have the beans and the body in hand") {
+      Game(hand = List(Body, BeanOne))(Concentration(BeanOne, BeanTwo)).bag shouldBe empty
+      Game(hand = List(Body, BeanTwo))(Concentration(BeanOne, BeanTwo)).bag shouldBe empty
+      Game(hand = List(BeanOne, BeanTwo))(Concentration(BeanOne, BeanTwo)).bag shouldBe empty
+    }
+
     // selects the beans to consume
     // 1, 2 or 3
     // total must me 4 or less
