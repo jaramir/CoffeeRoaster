@@ -30,6 +30,8 @@ object Main extends App {
     bag = jamaicaBlueMountainNo1Bag,
     targetRoastLevel = jamaicaBlueMountainNo1Target)
 
+  println(s"target roast: $jamaicaBlueMountainNo1Target")
+
   while (!game.isFinished) {
     StdIn.readLine("[Look|Pull|Roast|Stop|Concentration x y|Preservation x y]> ") match {
       case "l" =>
