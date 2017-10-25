@@ -11,7 +11,7 @@ TODO
 - [x] roast points
 - [x] roast tracker
 - [x] skill points
-- [ ] body & concentration
+- [x] body & concentration
 - [ ] acidity & preservation
 - [ ] aroma & dispersion
 - [ ] flavor points

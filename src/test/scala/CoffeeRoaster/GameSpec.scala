@@ -154,13 +154,6 @@ class GameSpec extends FunSpec with Matchers {
       Game(hand = List(Body, BeanTwo))(Concentration(BeanOne, BeanTwo)).bag shouldBe empty
       Game(hand = List(BeanOne, BeanTwo))(Concentration(BeanOne, BeanTwo)).bag shouldBe empty
     }
-
-    // selects the beans to consume
-    // 1, 2 or 3
-    // total must me 4 or less
-    // goes to the bag
-    // consumes the body
-    // has to have a body token
   }
 
   private val twentyFiveBeans: List[Token] = List(
