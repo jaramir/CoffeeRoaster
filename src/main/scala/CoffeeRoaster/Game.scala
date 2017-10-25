@@ -29,6 +29,7 @@ case class Game(bag: List[Token] = List(),
     case Concentration(b1, b2) =>
       if (!hand.contains(b1)) return this
       if (!hand.contains(b2)) return this
+      if (b1 == b2 && hand.count(_ == b1) < 2) return this
       if (!hand.contains(Body)) return this
 
       val roastValue = b1.roastValue + b2.roastValue
@@ -43,6 +44,7 @@ case class Game(bag: List[Token] = List(),
     case Preservation(b1, b2) =>
       if (!hand.contains(b1)) return this
       if (!hand.contains(b2)) return this
+      if (b1 == b2 && hand.count(_ == b1) < 2) return this
       if (!hand.contains(Acidity)) return this
 
       val newHand = (hand.toBuffer - Acidity - b1 - b2).toList

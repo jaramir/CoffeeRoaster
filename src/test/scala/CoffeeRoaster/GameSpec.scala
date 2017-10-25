@@ -153,6 +153,7 @@ class GameSpec extends FunSpec with Matchers {
       Game(hand = List(Body, BeanOne))(Concentration(BeanOne, BeanTwo)).bag shouldBe empty
       Game(hand = List(Body, BeanTwo))(Concentration(BeanOne, BeanTwo)).bag shouldBe empty
       Game(hand = List(BeanOne, BeanTwo))(Concentration(BeanOne, BeanTwo)).bag shouldBe empty
+      Game(hand = List(Body, BeanOne, BeanTwo))(Concentration(BeanOne, BeanOne)).bag shouldBe empty
     }
   }
 
@@ -170,6 +171,7 @@ class GameSpec extends FunSpec with Matchers {
       Game(hand = List(Acidity, BeanOne))(Preservation(BeanOne, BeanTwo)).bag shouldBe empty
       Game(hand = List(Acidity, BeanTwo))(Preservation(BeanOne, BeanTwo)).bag shouldBe empty
       Game(hand = List(BeanOne, BeanTwo))(Preservation(BeanOne, BeanTwo)).bag shouldBe empty
+      Game(hand = List(Acidity, BeanOne, BeanTwo))(Preservation(BeanOne, BeanOne)).bag shouldBe empty
     }
   }
 
