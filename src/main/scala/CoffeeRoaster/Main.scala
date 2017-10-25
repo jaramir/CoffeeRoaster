@@ -62,12 +62,14 @@ object Main extends App {
         val b1 = toBean(parts(1))
         val b2 = toBean(parts(2))
         game = game(Concentration(b1, b2))
+        look("hand", game.hand)
 
       case cmd if cmd.matches("p [01234] [01234]") =>
         val parts = cmd.split(' ')
         val b1 = toBean(parts(1))
         val b2 = toBean(parts(2))
         game = game(Preservation(b1, b2))
+        look("hand", game.hand)
 
       case cmd =>
         println(s"""I don't know how to "$cmd\"""")
@@ -75,9 +77,11 @@ object Main extends App {
   }
 
   private def toBean(str: String) = str match {
+    case "0" => BeanZero
     case "1" => BeanOne
     case "2" => BeanTwo
     case "3" => BeanThree
+    case "4" => BeanFour
   }
 
   private def look(name: String, tokens: List[Token]) {
