@@ -42,20 +42,20 @@ object Main extends App {
       case "p" =>
         val next = game(Pull)
         if (next.discarded != game.discarded) {
-          println(s"discarded: ${next.discarded.diff(game.discarded)}")
+          look("discarded", next.discarded.diff(game.discarded))
         }
         game = next
-        game.hand.foreach(println)
+        look("hand", game.hand)
 
       case "r" =>
         game = game(Roast)
-        println(s"roast tracker is now: ${game.roastTracker}")
+        println(s"roast tracker: ${game.roastTracker}")
 
       case "s" =>
         game = game(Stop)
-        game.cup.foreach(println)
-        println(s"cup roast level is: ${game.cupRoastLevel}")
-        println(s"your score is: ${game.score}")
+        look("cup", game.cup)
+        println(s"cup roast level: ${game.cupRoastLevel}")
+        println(s"final score: ${game.score}")
 
       case cmd if cmd.matches("c [123] [123]") =>
         val parts = cmd.split(' ')
@@ -70,7 +70,7 @@ object Main extends App {
         game = game(Preservation(b1, b2))
 
       case cmd =>
-        println(s"I don't know how to $cmd")
+        println(s"""I don't know how to "$cmd\"""")
     }
   }
 
