@@ -25,6 +25,16 @@ case class Game(bag: List[Token] = List(),
     case Stop =>
       val (picked, rest) = shuffle(bag).splitAt(tokensToScore)
       this.copy(rest, empty, picked, isFinished = true)
+
+    case Concentration(b1, b2) =>
+      val roastValue = b1.roastValue + b2.roastValue
+      List(BeanTwo, BeanThree, BeanFour)
+        .find(_.roastValue == roastValue)
+        .map(newToken => {
+          val newHand = (hand.toBuffer - Body - b1 - b2).toList
+          this.copy(hand = newHand, bag = bag :+ newToken)
+        })
+        .getOrElse(this)
   }
 
   def score: Int = roastPoints + negativePoints + skillPoints

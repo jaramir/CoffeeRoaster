@@ -87,3 +87,13 @@ case object Moisture extends Token {
 
   override def toString = "(M)"
 }
+
+case object Body extends Token {
+  override def roastValue: Int = 0
+
+  override def scoreModifier: Int = 0
+
+  override def roast: Body.type = Body
+
+  override def toString = "(Body)"
+}

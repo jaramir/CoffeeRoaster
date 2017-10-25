@@ -139,6 +139,24 @@ class GameSpec extends FunSpec with Matchers {
     }
   }
 
+  describe("Concentration") {
+    it("use a body to turn two beans into one") {
+      val initialState = Game(hand = List(BeanOne, BeanTwo, Body))
+
+      val afterConcentrtion = initialState(Concentration(BeanOne, BeanTwo))
+
+      afterConcentrtion.hand shouldBe empty
+      afterConcentrtion.bag should contain only BeanThree
+    }
+
+    // selects the beans to consume
+    // 1, 2 or 3
+    // total must me 4 or less
+    // goes to the bag
+    // consumes the body
+    // has to have a body token
+  }
+
   private val twentyFiveBeans: List[Token] = List(
     BeanOne, BeanOne, BeanOne, BeanOne, BeanOne,
     BeanOne, BeanOne, BeanOne, BeanOne, BeanOne,
