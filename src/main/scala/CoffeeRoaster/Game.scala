@@ -27,6 +27,9 @@ case class Game(bag: List[Token] = List(),
       this.copy(rest, empty, picked, isFinished = true)
 
     case Concentration(b1, b2) =>
+      def isAcceptable(token: Token) = List(BeanOne, BeanTwo, BeanThree).contains(token)
+
+      if (!isAcceptable(b1) || !isAcceptable(b2)) return this
       if (!hand.contains(b1)) return this
       if (!hand.contains(b2)) return this
       if (b1 == b2 && hand.count(_ == b1) < 2) return this
@@ -42,6 +45,9 @@ case class Game(bag: List[Token] = List(),
         .getOrElse(this)
 
     case Preservation(b1, b2) =>
+      def isAcceptable(token: Token) = List(BeanZero, BeanOne, BeanTwo, BeanThree, BeanFour).contains(token)
+
+      if (!isAcceptable(b1) || !isAcceptable(b2)) return this
       if (!hand.contains(b1)) return this
       if (!hand.contains(b2)) return this
       if (b1 == b2 && hand.count(_ == b1) < 2) return this
